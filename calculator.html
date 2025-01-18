@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width", initial-scale="1.0", maximum-scale="1", user-scalable="no"/>
+    <link rel="icon" href="https://th.bing.com/th/id/OIP.PxBuhT2oIuUO5I6Mx3HQ4AHaJh?w=165&h=212&c=7&r=0&o=5&dpr=1.3&pid=1.7"/>
+    <title>Calculator</title>
+    <style>
+        body{
+            height: auto;
+            width: auto;
+            outline: none;
+            box-sizing: border-box;
+            margin: auto;
+            background-color:#444455;
+            color: black;
+        }
+        .textarea{
+            width: 16em;
+            height:4em;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            background-color: rgb(248, 243, 238);
+            font-size: 18px;
+            padding: 0.5em;
+            border-radius: 5px;
+        }
+        .calculator{
+            display: flex;
+            flex-direction: column;
+            justify-self: start;
+            padding: 1em;
+            margin: 10% 0% 0% 40%;
+            box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+            border-radius: 0.5em;
+            position: fixed;
+            
+            background-color: white;
+        }
+        .calculator>.keys{
+            display: grid;
+            grid-template-columns: repeat(4,6fr);
+            margin-top:1em;
+            row-gap: 0.5em;
+            column-gap: 0.5em;
+        }
+        .equal{
+            /*grid-column: 2 / span 2;*/
+            grid-column-start: 3;
+            grid-column-end: 5;
+            background-color: green;
+            font-weight: 800;
+            font-size: 18px;
+            color: white;
+        }
+        .plus{
+            background-color: black;
+            color: white;
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .calculator>.keys>div{
+            justify-content: center;
+            text-align: center;
+            text-align: center;
+            padding: 0.5em;
+            font-size: 18px;
+            font-weight: 800;
+            
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+            height: 1.5em;
+        }
+        .calculator>.keys>.black{
+           color: white;
+           background-color: black;
+        }
+        .calculator>.keys>.red{
+            color: white;
+            background-color: red;
+        }
+        .calculator>.keys>.equal{
+            grid-template-columns: auto auto;
+        }
+        .calculator>.keys>.key:hover{
+            background-color: teal;
+            cursor: pointer;
+        }
+        .calculator>.keys>.black:hover{
+            background-color: white;
+            color: black;
+            cursor: pointer;
+        }
+        .calculator>.keys>.equal:hover{
+            background-color: white;
+            color: black;
+            cursor: pointer;
+        }
+        .calculator>.keys>.red:hover{
+            background-color:rgb(142, 142, 42);
+            color: black;
+            cursor: pointer;
+        }
+        .calculator>.keys>.del:hover{
+            background-color:rgb(142, 142, 42);
+            color: black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2 style="color: rgb(52, 143, 165); text-align: center;">Calculator</h2>
+        <div class="textarea">
+            <span id="display"></span><br>
+            <p id="exsting"></p>
+        </div>
+        <div class="keys">
+            <div class="red">AC</div>
+            <div class="del">DEL</div>
+            <div class="black">%</div>
+            <div class="black">/</div>
+            <div class="key">7</div>
+            <div class="key">8</div>
+            <div class="key">9</div>
+            <div class="black">X</div>
+            <div class="key">4</div>
+            <div class="key">5</div>
+            <div class="key">6</div>
+            <div class="black">-</div>
+            <div class="key">1</div>
+            <div class="key">2</div>
+            <div class="key">3</div>
+            <div class="black">+</div>
+            <div class="key">0</div>
+            <div class="key">.</div>
+            <div class="equal">=</div>
+            
+        </div>
+    </div>
+    <script>
+        let bag = "";
+        let res = 0;
+        let ex = "";
+        let x = document.querySelectorAll(".keys>div");
+        //console.log(x);
+        x.forEach(function(elements){
+            elements.addEventListener("click",myClaculator)
+        })
+        function myClaculator(){
+            let result = event.target.innerHTML;
+            //console.lg(result)
+            if(result=="AC"){
+                bag = "";
+                ex = "";
+                res = 0;
+                document.querySelector("#display").innerHTML = bag;
+                document.querySelector("#exsting").innerHTML = ex;
+            }
+            else if(result=="="){
+                if(document.querySelector("#display").innerHTML == ""){
+                    document.querySelector("#display").innerHTML = "undefind"
+                }else{
+                    document.querySelector("#exsting").innerHTML = bag;
+                    res = eval(bag);
+                    document.querySelector("#display").innerHTML = res;
+                    bag = res;
+                }
+                
+            }else if(result=="DEL"){
+                bag = bag.slice(0,-1);
+                document.querySelector("#display").innerHTML = bag;
+            }
+            else{
+                if(result=="X"){
+                    bag = bag+"*";
+                }else{
+                    bag = bag+""+result;
+                }
+                document.querySelector("#display").innerHTML = bag;
+            }
+        }
+    </script>
+</body>
+</html>
